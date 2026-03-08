@@ -20,10 +20,9 @@ Log learnings and errors to markdown files for continuous improvement. Coding ag
 | Found better approach | Log to `.learnings/LEARNINGS.md` with category `best_practice` |
 | Simplify/Harden recurring patterns | Log/update `.learnings/LEARNINGS.md` with `Source: simplify-and-harden` and a stable `Pattern-Key` |
 | Similar to existing entry | Link with `**See Also**`, consider priority bump |
-| Broadly applicable learning | Promote to `CLAUDE.md`, `AGENTS.md`, and/or `.github/copilot-instructions.md` |
 | Workflow improvements | Promote to `AGENTS.md` (OpenClaw workspace) |
 | Tool gotchas | Promote to `TOOLS.md` (OpenClaw workspace) |
-| Behavioral patterns | Promote to `SOUL.md` (OpenClaw workspace) |
+| Recurring patterns/systemic fixes | Promote to `AGENTS.md` or `TOOLS.md` (see Persona Pillars section below) |
 
 ## OpenClaw Setup (Recommended)
 
@@ -78,9 +77,31 @@ When learnings prove broadly applicable, promote them to workspace files:
 
 | Learning Type | Promote To | Example |
 |---------------|------------|---------|
-| Behavioral patterns | `SOUL.md` | "Be concise, avoid disclaimers" |
 | Workflow improvements | `AGENTS.md` | "Spawn sub-agents for long tasks" |
 | Tool gotchas | `TOOLS.md` | "Git push needs auth configured first" |
+| Recurring patterns | `AGENTS.md` or `TOOLS.md` | "Always validate YAML before parsing" |
+
+**Important**: Self-Improvement skill focuses on operational learnings (workflows, tools). Core personality changes should be intentional decisions by the user, not automatic iterations.
+
+### Persona Pillars Stability
+
+OpenClaw workspace files have distinct purposes. Understand the boundary before promoting:
+
+| File | Purpose | Self-Improvement Target? |
+|------|---------|-------------------------|
+| `AGENTS.md` | Workspace rules, workflows, automation | ✅ **Yes** - Operational improvements go here |
+| `TOOLS.md` | Tool capabilities, integration gotchas | ✅ **Yes** - Tool learnings go here |
+| `MEMORY.md` | Long-term curated memories | ✅ **Yes** - Important decisions, lessons learned |
+| `SOUL.md` | Core personality, values, constitution | ❌ **No** - Personality should remain stable |
+| `IDENTITY.md` | Presentation layer (name, avatar) | ❌ **No** - Only modify if user explicitly requests |
+
+**Why not SOUL.md?**
+- SOUL.md defines *who you are* — your core values, personality, boundaries
+- Automatic iteration risks **personality drift** — gradual unintended changes to your identity
+- If the user wants personality changes, they should explicitly edit SOUL.md
+- Self-improvement should make you *better at your job*, not *a different person*
+
+**Exception**: If the user explicitly says "update my SOUL.md" or "change my personality to...", follow their instruction. Otherwise, keep SOUL.md stable.
 
 ### Inter-Session Communication
 
@@ -124,9 +145,11 @@ Copy templates from `assets/` or create files with headers.
 When errors or corrections occur:
 1. Log to `.learnings/ERRORS.md`, `LEARNINGS.md`, or `FEATURE_REQUESTS.md`
 2. Review and promote broadly applicable learnings to:
-   - `CLAUDE.md` - project facts and conventions
-   - `AGENTS.md` - workflows and automation
+   - `CLAUDE.md` - project facts and conventions (legacy, prefer AGENTS.md)
+   - `AGENTS.md` - workflows and automation (**preferred for OpenClaw**)
+   - `TOOLS.md` - tool capabilities and gotchas
    - `.github/copilot-instructions.md` - Copilot context
+3. **Do NOT automatically modify** `SOUL.md` or `IDENTITY.md` — these define core personality and should only change through explicit user intent
 
 ## Logging Format
 
@@ -272,13 +295,14 @@ When a learning is broadly applicable (not a one-off fix), promote it to permane
 
 ### Promotion Targets
 
-| Target | What Belongs There |
-|--------|-------------------|
-| `CLAUDE.md` | Project facts, conventions, gotchas for all Claude interactions |
-| `AGENTS.md` | Agent-specific workflows, tool usage patterns, automation rules |
-| `.github/copilot-instructions.md` | Project context and conventions for GitHub Copilot |
-| `SOUL.md` | Behavioral guidelines, communication style, principles (OpenClaw workspace) |
-| `TOOLS.md` | Tool capabilities, usage patterns, integration gotchas (OpenClaw workspace) |
+| Target | What Belongs There | Self-Improvement Target? |
+|--------|-------------------|-------------------------|
+| `AGENTS.md` | Agent-specific workflows, tool usage patterns, automation rules | ✅ **Primary target** |
+| `TOOLS.md` | Tool capabilities, usage patterns, integration gotchas | ✅ **Primary target** |
+| `CLAUDE.md` | Project facts, conventions, gotchas for all Claude interactions | ⚠️ Legacy, prefer AGENTS.md |
+| `.github/copilot-instructions.md` | Project context and conventions for GitHub Copilot | ✅ Yes |
+| `SOUL.md` | Core personality, values, constitution (OpenClaw workspace) | ❌ **No - requires explicit user intent** |
+| `IDENTITY.md` | Presentation layer: name, creature, emoji, avatar | ❌ **No - requires explicit user intent** |
 
 ### How to Promote
 
@@ -351,11 +375,13 @@ Promote recurring patterns into agent context/system prompt files when all are t
 - Seen across at least 2 distinct tasks
 - Occurred within a 30-day window
 
-Promotion targets:
-- `CLAUDE.md`
-- `AGENTS.md`
-- `.github/copilot-instructions.md`
-- `SOUL.md` / `TOOLS.md` for OpenClaw workspace-level guidance when applicable
+Promotion targets (in priority order):
+1. `AGENTS.md` - workflows, automation rules
+2. `TOOLS.md` - tool capabilities, integration patterns  
+3. `CLAUDE.md` - general conventions (legacy, prefer AGENTS.md)
+4. `.github/copilot-instructions.md` - Copilot context
+
+**Avoid**: `SOUL.md` (personality) and `IDENTITY.md` (presentation) unless user explicitly requests.
 
 Write promoted rules as short prevention rules (what to do before/while coding),
 not long incident write-ups.
